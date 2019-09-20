@@ -15,20 +15,26 @@ namespace ReceiveLogsDirect
             {
                 using (var model = connection.CreateModel())
                 {
-                    model.ExchangeDeclare(exchange: "direct_logs",
-                                              type: "direct");
+                    var exchangeName = "My_exchange_name";
 
                     var queueName = model.QueueDeclare().QueueName;
 
+                    //Sarqum em Exchange!!! Anun@ -> My_Exchange, tip@ -> direct
+                    model.ExchangeDeclare(exchange: exchangeName,
+                                              type: "direct");
 
-                    foreach (var severity in new string[] { "info", "warning", "error"})
+
+                    Console.Error.WriteLine("Usage: {0} [info] [warning] [error]");
+
+
+                    foreach (var routingKey in args)
                     {
                         model.QueueBind(queue: queueName,
-                                          exchange: "direct_logs",
-                                          routingKey: severity);
+                                     exchange: exchangeName,
+                                   routingKey: routingKey);
                     }
 
-                    Console.WriteLine(" [*] Waiting for messages.");
+                    Console.WriteLine(" [*] Waiting for messages...");
 
                     var consumer = new EventingBasicConsumer(model);
 
@@ -38,9 +44,9 @@ namespace ReceiveLogsDirect
                         var message = Encoding.Unicode.GetString(body);
 
                         var routingKey = ea.RoutingKey;
-                        Console.WriteLine(" [x] Received '{0}':'{1}'",
-                                          routingKey, message);
+                        Console.WriteLine(" [x] Received '{0}':'{1}'", routingKey, message);
                     };
+
                     model.BasicConsume(queue: queueName,
                                          autoAck: true,
                                          consumer: consumer);

@@ -26,7 +26,7 @@ namespace Receiving
                     consumer.Received += (mo, ea) =>
                     {
                         var body = ea.Body;
-                        var message = Encoding.UTF8.GetString(body);
+                        var message = Encoding.Unicode.GetString(body);
                         Console.WriteLine(" [x] Received {0}", message);
                     };
                     model.BasicConsume(queue: "hello",
