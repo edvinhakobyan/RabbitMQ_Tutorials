@@ -22,8 +22,8 @@ namespace Worker
                                          arguments: null);
 
                     model.BasicQos(prefetchSize: 0,
-                                    prefetchCount: 1,
-                                           global: false);
+                                  prefetchCount: 1,
+                                         global: false);
 
                     Console.WriteLine(" [*] Waiting for messages.");
 
