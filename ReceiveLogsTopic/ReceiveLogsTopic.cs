@@ -15,12 +15,12 @@ namespace ReceiveLogsTopic
 
             using (var connection = factory.CreateConnection())
             {
-                using (var channel = connection.CreateModel())
+                using (var model = connection.CreateModel())
                 {
-                    channel.ExchangeDeclare(exchange: exchangeName, 
+                    model.ExchangeDeclare(exchange: exchangeName, 
                                                 type: "topic");
 
-                    var queueName = channel.QueueDeclare().QueueName;
+                    var queueName = model.QueueDeclare().QueueName;
 
                     if (args.Length < 1)
                     {
@@ -34,22 +34,27 @@ namespace ReceiveLogsTopic
 
                     foreach (var bindingKey in args)
                     {
-                        channel.QueueBind(queue: queueName,
+                        model.QueueBind(queue: queueName,
                                        exchange: exchangeName,
                                      routingKey: bindingKey);
                     }
 
                     Console.WriteLine(" [*] Waiting for messages. To exit press CTRL+C");
 
-                    var consumer = new EventingBasicConsumer(channel);
-                    consumer.Received += (model, ea) =>
-                    {
-                        var body = ea.Body;
-                        var message = Encoding.Unicode.GetString(body);
-                        var routingKey = ea.RoutingKey;
-                        Console.WriteLine(" [x] Received '{0}':'{1}'", routingKey, message);
-                    };
-                    channel.BasicConsume(queue: queueName,
+                    Consumer consumer = new Consumer(model);
+
+
+                    //var consumer = new EventingBasicConsumer(channel);
+
+                    //consumer.Received += (model, ea) =>
+                    //{
+                    //    var body = ea.Body;
+                    //    var message = Encoding.Unicode.GetString(body);
+                    //    var routingKey = ea.RoutingKey;
+                    //    Console.WriteLine(" [x] Received '{0}':'{1}'", routingKey, message);
+                    //};
+
+                    model.BasicConsume(queue: queueName,
                                        autoAck: true,
                                       consumer: consumer);
 
@@ -59,4 +64,30 @@ namespace ReceiveLogsTopic
             }
         }
     }
+
+
+    public class Consumer : DefaultBasicConsumer
+    {
+        private readonly IModel _model;
+
+        public Consumer(IModel model)
+        {
+            _model = model;
+        }
+
+
+        public override void HandleBasicDeliver(string consumerTag, 
+                                                ulong deliveryTag,
+                                                bool redelivered, 
+                                                string exchange, 
+                                                string routingKey, 
+                                                IBasicProperties properties,
+                                                byte[] body)
+        {
+            string mesage = Encoding.Unicode.GetString(body);
+            Console.WriteLine(mesage);
+        }
+
+    }
+
 }

@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using RabbitMQ.Client;
 
 namespace RequestRabbitMQ
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            string UserName = "guest";
-            string Password = "guest";
-            string HostName = "localhost";
 
+    class MessagePublisher
+    {
+        private const string UserName = "guest";
+        private const string Password = "guest";
+        private const string HostName = "localhost";
+
+        public void SendMessage(string message)
+        {
             var connectionFactory = new ConnectionFactory()
             {
                 UserName = UserName,
@@ -24,25 +26,41 @@ namespace RequestRabbitMQ
 
             //Creating Exchange
             model.ExchangeDeclare("demoExchange", ExchangeType.Direct, true, true);
-            Console.WriteLine("Creating Exchange");
+            //Console.WriteLine("Creating Exchange");
 
             //Creating Queue
             model.QueueDeclare("demoQueue", true, false, false, null);
-            Console.WriteLine("Creating Queue");
+            //Console.WriteLine("Creating Queue");
 
             //Creating Binding
             model.QueueBind("demoQueue", "demoExchange", "directexchange_key");
-            Console.WriteLine("Creating Binding");
+            //Console.WriteLine("Creating Binding");
 
 
             var properties = model.CreateBasicProperties();
             properties.Persistent = false;
 
-            var message = "Direct Message";
             var messagebuffer = Encoding.Unicode.GetBytes(message);
 
             model.BasicPublish("demoExchange", "directexchange_key", properties, messagebuffer);
-            Console.WriteLine("Message Send");
+        }
+    }
+
+
+
+
+    class Program
+    {
+        static void Main()
+        {
+            MessagePublisher publisher = new MessagePublisher();
+
+            for (int i = 0; i < 1000; i++)
+            {
+                publisher.SendMessage($"Send {i}");
+                Console.WriteLine($"Send {i}");
+                Thread.Sleep(1000);
+            }
 
 
             Console.ReadLine();

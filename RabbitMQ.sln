@@ -37,9 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiveLogsDirect", "Receiv
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "000", "000", "{AFF4393B-E761-4D8A-8636-D428159C0F49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmitLogTopic", "EmitLogTopic\EmitLogTopic.csproj", "{6694E64F-AD66-47C7-B44C-0B8D77962372}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmitLogTopic", "EmitLogTopic\EmitLogTopic.csproj", "{6694E64F-AD66-47C7-B44C-0B8D77962372}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveLogsTopic", "ReceiveLogsTopic\ReceiveLogsTopic.csproj", "{8B0F0DA4-3081-474A-AD80-05972BEA42A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiveLogsTopic", "ReceiveLogsTopic\ReceiveLogsTopic.csproj", "{8B0F0DA4-3081-474A-AD80-05972BEA42A5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RabbitMQ Tutorials", "RabbitMQ Tutorials", "{391BD161-1B93-48DB-A8C6-E1A77EDCC152}"
 EndProject
@@ -47,7 +47,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Learn RabbitMQ With .net", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publish Message Using .Net to RabbitMq", "Publish Message Using .Net to RabbitMq", "{50E6925F-6E94-4FF3-A3F4-8A77E3442EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RequestRabbitMQ", "RequestRabbitMQ\RequestRabbitMQ.csproj", "{A832F2DD-5D5F-4F15-BF34-1931B81A02A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMQPublisher", "RequestRabbitMQ\RabbitMQPublisher.csproj", "{A832F2DD-5D5F-4F15-BF34-1931B81A02A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQConsumer", "RabbitMQConsumer\RabbitMQConsumer.csproj", "{31B8EB09-EA78-4E67-9733-C7061A2C8FC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +109,10 @@ Global
 		{A832F2DD-5D5F-4F15-BF34-1931B81A02A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A832F2DD-5D5F-4F15-BF34-1931B81A02A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A832F2DD-5D5F-4F15-BF34-1931B81A02A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31B8EB09-EA78-4E67-9733-C7061A2C8FC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31B8EB09-EA78-4E67-9733-C7061A2C8FC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31B8EB09-EA78-4E67-9733-C7061A2C8FC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31B8EB09-EA78-4E67-9733-C7061A2C8FC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{8B0F0DA4-3081-474A-AD80-05972BEA42A5} = {D9AC2AB7-05E7-438B-BC1B-97CC513BA722}
 		{50E6925F-6E94-4FF3-A3F4-8A77E3442EF6} = {9E0CBCD3-46B8-4D9A-9BED-0CBB37B29947}
 		{A832F2DD-5D5F-4F15-BF34-1931B81A02A0} = {50E6925F-6E94-4FF3-A3F4-8A77E3442EF6}
+		{31B8EB09-EA78-4E67-9733-C7061A2C8FC2} = {50E6925F-6E94-4FF3-A3F4-8A77E3442EF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7C14C630-4B03-4534-ABD8-7066AF62889E}
