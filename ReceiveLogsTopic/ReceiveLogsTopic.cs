@@ -75,7 +75,6 @@ namespace ReceiveLogsTopic
             _model = model;
         }
 
-
         public override void HandleBasicDeliver(string consumerTag, 
                                                 ulong deliveryTag,
                                                 bool redelivered, 
@@ -85,9 +84,9 @@ namespace ReceiveLogsTopic
                                                 byte[] body)
         {
             string mesage = Encoding.Unicode.GetString(body);
+            _model.BasicAck(deliveryTag, false); //hastatum a vor stacel a
             Console.WriteLine(mesage);
         }
-
     }
 
 }
